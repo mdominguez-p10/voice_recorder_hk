@@ -169,6 +169,8 @@ class VoiceRecorder {
         }
         
         try {
+            console.log('Preparando para enviar grabación al endpoint:', this.config.endpoint);
+            
             // Crear FormData para enviar el archivo
             const formData = new FormData();
             const fileName = `recording_${Date.now()}.${this.config.fileFormat}`;
@@ -183,17 +185,22 @@ class VoiceRecorder {
                 }
             }
             
+            console.log('Enviando grabación al servidor...');
+            
             // Enviar la solicitud
             const response = await fetch(this.config.endpoint, {
                 method: 'POST',
                 body: formData
             });
             
+            console.log('Respuesta recibida. Status:', response.status, response.statusText);
+            
             if (!response.ok) {
                 throw new Error(`Error al enviar: ${response.statusText}`);
             }
             
             const result = await response.json();
+            console.log('Datos de respuesta:', result);
             
             // Llamar al callback de éxito
             this.config.onSendSuccess(result);

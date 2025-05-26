@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grabador de Voz</title>
+    <title>Grabador de Voz con Whisper</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -20,11 +20,35 @@
         <div class="controls-container">
             <button id="sendButton" class="send-btn" disabled>Enviar Grabación</button>
             <button id="cancelButton" class="cancel-btn" disabled>Cancelar</button>
+            <button id="transcribeLocalButton" class="transcribe-btn" disabled>Transcribir Local</button>
         </div>
         <div id="audioPreview" class="audio-preview"></div>
         <div id="statusMessage" class="status-message"></div>
+        
+        <div class="model-status">
+            <div id="modelStatus" class="model-status-text">Estado del modelo: No cargado</div>
+            <div class="progress-container">
+                <div id="modelProgress" class="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="controls-container">
+            <button id="testButton" class="send-btn">Prueba de Transcripción</button>
+        </div>
+        
+        <div id="chatContainer" class="chat-container">
+            <div class="chat-message chat-message-system">
+                <span class="chat-sender">Asistente</span>
+                <div class="chat-bubble">
+                    Hola, puedes grabar un mensaje de voz y lo transcribiré para ti.
+                </div>
+                <span class="chat-time">Ahora</span>
+            </div>
+        </div>
     </div>
+    
+    <!-- Cargamos los scripts como módulos ES para usar importaciones -->
     <script src="src/voiceRecorder.js"></script>
-    <script src="src/app.js"></script>
+    <script type="module" src="src/app.js"></script>
 </body>
 </html>
