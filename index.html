@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grabador de Voz</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Grabador de Voz</h1>
+        <div class="recorder-container">
+            <button id="recordButton" class="record-btn">
+                <span class="record-icon"></span>
+                <span class="record-text">Grabar</span>
+            </button>
+            <div id="recordingStatus" class="status">Presiona el botón para grabar</div>
+            <div id="recordingTime" class="timer">00:00</div>
+        </div>
+        <div class="controls-container">
+            <button id="sendButton" class="send-btn" disabled>Enviar Grabación</button>
+            <button id="cancelButton" class="cancel-btn" disabled>Cancelar</button>
+        </div>
+        <div id="audioPreview" class="audio-preview"></div>
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+    <script src="src/voiceRecorder.js"></script>
+    <script src="src/app.js"></script>
+</body>
+</html>
