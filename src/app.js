@@ -219,8 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mostrar indicador de carga
             showTranscriptionLoading();
             
-            // Transcribir usando Whisper
-            const transcription = await whisperTranscriber.transcribeAudio(lastRecording);
+            // Transcribir usando Whisper con un timeout de 30 segundos
+            const transcription = await whisperTranscriber.transcribeAudio(lastRecording, 30000);
             
             // Mostrar la transcripción
             console.log('Transcripción local completada:', transcription);
@@ -237,14 +237,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
         } catch (error) {
             console.error('Error en la transcripción local:', error);
-            statusMessage.textContent = `Error en la transcripción local: ${error.message}`;
+            
+            // Mensaje específico para timeout
+            if (error.message.includes('Timeout')) {
+                statusMessage.textContent = 'La transcripción local fue cancelada: tardó demasiado tiempo (más de 30 segundos)';
+                addMessageToChat('Sistema', 'system', 'La transcripción fue cancelada porque tardó demasiado tiempo (más de 30 segundos). Intenta con un audio más corto o utiliza la transcripción en el servidor.');
+            } else {
+                statusMessage.textContent = `Error en la transcripción local: ${error.message}`;
+                addMessageToChat('Sistema', 'system', `Error: No se pudo transcribir localmente. ${error.message}`);
+            }
+            
             statusMessage.className = 'status-message error';
             
             // Limpiar indicador de carga
             removeTranscriptionLoading();
-            
-            // Añadir mensaje de error al chat
-            addMessageToChat('Sistema', 'system', `Error: No se pudo transcribir localmente. ${error.message}`);
         }
     });
 
